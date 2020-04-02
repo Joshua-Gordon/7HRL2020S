@@ -12,5 +12,5 @@ loadAssets :: IO (M.Map String Picture)
 loadAssets = do
   fileNames <- listDirectory folderPath
   foldM (\m filePath -> do
-    asset <- loadBMP filePath
+    asset <- loadBMP (folderPath ++ "/" ++ filePath)
     return $ M.insert filePath asset m ) M.empty fileNames
