@@ -1,1 +1,1 @@
-main = println "hello"
+main = print "hello"
