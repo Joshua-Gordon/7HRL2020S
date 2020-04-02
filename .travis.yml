@@ -18,10 +18,9 @@ install:
   - ghc --version
   - cabal --version
   - cabal new-update
-  - curl -sSL https://raw.github.com/ndmitchell/neil/master/misc/travis.sh | sh -s -- hlint src/
 
 script:
-  - cabal new-test --enable-tests
+  - curl -sSL https://raw.github.com/ndmitchell/neil/master/misc/travis.sh | sh -s -- hlint src/
 
 notifications:
   email: false
