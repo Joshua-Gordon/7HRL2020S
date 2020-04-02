@@ -1,0 +1,27 @@
+language: minimal
+matrix:
+  include:
+  - env: GHCVER=8.6
+  - env: GHCVER=8.8
+  - env: GHCVER=8.10
+  - env: GHCVER=head
+  - os: osx
+
+script:
+- export HLINT_ARGUMENTS=src
+# - export UNIPLATE_VERBOSE=-1
+# apply-refact doesn't compile with GHC head or 8.10
+# if you are using ghc-exactprint-0.6.3 you get a compile error
+- "[ \"$GHCVER\" = \"head\" ] || [ \"$GHCVER\" = \"8.10\" ] || export HASKELL_DEPENDENCIES=\"ghc-exactprint-0.6.2 apply-refact\""
+- curl -sSL https://raw.github.com/ndmitchell/neil/master/travis.sh | sh
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "AGqjQtLxRE+MXWYuNK0oD2nqyGOUm67T3Bfa8p6fkSDM3hZ8zSeg48YcNb4IL0lB40l2ATK53hvIzdxqxg81pnMZIWZj3NoO/y0DT0uiYBDKN0xX8Lp7lJmjxCl5jyfBRx47t9Evk5HYZoyjPgRR2t4E84N4oSCcv2El1fJY9mU="
+  file_glob: true
+  file:  travis-release/*
+  skip_cleanup: true
+  on:
+    tags: true
+
