@@ -1,11 +1,8 @@
 language: minimal
 matrix:
   include:
-  - env: GHCVER=8.6
-  - env: GHCVER=8.8
-  - env: GHCVER=8.10
   - env: GHCVER=head
-  - os: osx
+  - os: linux
 
 script:
 - export HLINT_ARGUMENTS=src
@@ -14,6 +11,7 @@ script:
 # if you are using ghc-exactprint-0.6.3 you get a compile error
 - "[ \"$GHCVER\" = \"head\" ] || [ \"$GHCVER\" = \"8.10\" ] || export HASKELL_DEPENDENCIES=\"ghc-exactprint-0.6.2 apply-refact\""
 - curl -sSL https://raw.github.com/ndmitchell/neil/master/travis.sh | sh
+- ghc src/test.hs
 
 deploy:
   provider: releases
