@@ -1,0 +1,34 @@
+No shops, ship is sufficient
+World type is either the map or the menu
+    Menu has scrollbar parametrised by length, current position
+Hull is health. Start at 100
+Ship requires power, die if no power Start at 100
+Heat bad, start at 0, limit is 100. Damage over time over a threshold
+Heat threshold starts at 20
+Gain heat each tick from percentage full of uranium times a constant (start at 2)
+Gain heat from drilling things equal to hardness
+Lose heat per tick equal to radiator value, start at 1
+
+Hardness of stone is min(100,100*(perlin + 1)/2 + other_constant * depth)
+
+
+Inventory cap starts at 40.
+
+Ores:
+    Uranium
+    Iron
+    Coal
+    Redstone
+    Gold
+    Diamond
+    Netherite
+    Obamium
+
+Recipes:
+    Fuel cell: 1x uranium
+    Repair kit: 1x iron, 1x redstone (heals 25)
+    Steel: 1x iron 2x coal 25 power
+    Depleted uranium: 5x uranium 5x redstone
+
+Upgrades:
+
