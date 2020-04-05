@@ -2,13 +2,18 @@ module Render where
 import GridManage
 import Types
 import Graphics.Gloss
+import Graphics.Gloss.Data.Picture
 import Data.Maybe
 import World
 import Control.Monad.State.Lazy
 import qualified Data.Map as M
 
 renderSquare :: Assets -> Tile -> Picture
-renderSquare assets sq = fromJust $ M.lookup (nameGetter sq) assets
+renderSquare assets sq = let
+  baseImage = fromJust $ M.lookup (nameGetter sq) assets
+  in case sq of
+    Stone h -> Pictures [baseImage,color (makeColor 0 0 0 (0.2 * fromIntegral h/100)) (rectangleSolid 32 32)]
+    _ -> baseImage
 
 number :: [[a]] -> [[((Int,Int),a)]]
 number = map (map (\(y,(x,z)) -> ((x,y),z))) . zipWith (zip . repeat) [0..] . map (zip [0..])
