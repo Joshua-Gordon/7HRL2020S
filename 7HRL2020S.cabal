@@ -17,7 +17,7 @@ cabal-version:       >=1.10
 
 executable 7HRL2020S
   main-is:             Main.hs
-  -- other-modules: 
+  other-modules: Events GridManage Inventory Loader Player Render Tick Types World
   -- other-extensions:
   build-depends:       base >=4.11 ,mtl ,gloss >= 1.13.1.1, containers, hsnoise, random, directory
   hs-source-dirs:      src

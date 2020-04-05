@@ -9,8 +9,8 @@ import Player
 
 make_noise :: Int -> Perlin
 make_noise s = let seed = s
-                   octaves = 5
-                   scale = 0.05
+                   octaves = 4
+                   scale = 0.5
                    persistence = 0.5
                in perlin seed octaves scale persistence
 
