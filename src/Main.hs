@@ -16,4 +16,3 @@ main = do
   print $ assets w
   play FullScreen black 30 w renderWorld handleEvent tickWorld
 
-
