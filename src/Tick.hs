@@ -30,16 +30,7 @@ mineHardness hardness p = p{player_heat=player_heat p + (hardness - drill_level 
 isMining :: World -> Bool
 isMining w = or [up w,down w,left w,right w]
 
-{-
 tickWorld :: Float -> World -> World
-tickWorld t w 
-  | not (isMining w) = w
-  | progress w > 0.5 = (mine w){progress=0}
-  | otherwise = w{progress=progress w + t}
--}
-
-tickWorld :: Float -> World -> IO World
-tickWorld t w = return $ if | not (isMining w) -> w
-                            | progress w > 0.5 ->  (mine w){progress=0}
-                            | otherwise ->  w{progress=progress w + t}
-
+tickWorld t w = if | not (isMining w) -> w
+                   | progress w > 0.5 ->  (mine w){progress=0}
+                   | otherwise ->  w{progress=progress w + t}
