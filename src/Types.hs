@@ -17,3 +17,15 @@ data World = World {
     ,inventory :: Inventory
 }
 
+data Player = Player {
+    player_x :: Int,
+    player_y :: Int,
+    player_hull :: Int,
+    player_heat :: Int,
+    heat_thresh :: Int,
+    player_inv :: Inventory,
+    radiator :: Int,
+    inv_cap :: Int,
+    has_smelt :: Bool
+}
+
