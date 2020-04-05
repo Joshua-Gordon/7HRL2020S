@@ -70,7 +70,7 @@ updateMenu f m = displayResources m{world=tickWorld f (world m),item_boxes=Trans
 
 handleClick :: Float -> Float -> Menu -> Menu
 handleClick x y m = traceShow (x,y) $ if x > -300 && x < 700 
-                        then let recipeIndex = fromIntegral . toInteger . round $ (450 + y - fromIntegral (scroll_pos m)) / 50
+                        then let recipeIndex = fromIntegral . toInteger . round $ (400 + y - fromIntegral (scroll_pos m)) / 50
                              in if recipeIndex < (fromIntegral $ length recipes) && recipeIndex >= 0
                                 then let w = world m
                                          p = player w
