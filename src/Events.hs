@@ -10,6 +10,7 @@ handleEvent (EventKey key ks' modifiers _) w = let ks = (ks' == Down)
                                                  Char 'a' -> w{left=ks}
                                                  Char 's' -> w{down=ks}
                                                  Char 'd' -> w{right=ks}
+                                                 Char ' ' -> if ks then w{player = tick_heat . head_damage $ player w} else w
                                                  _ -> w
 handleEvent _ w = w
 
