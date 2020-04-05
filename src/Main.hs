@@ -15,3 +15,4 @@ main = do
       let w=new_world{assets=loadedAssets}
       play FullScreen black 30 w renderWorld handleEvent tickWorld
 
+

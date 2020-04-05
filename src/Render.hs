@@ -9,17 +9,20 @@ import Debug.Trace
 import qualified Data.Map as M
 
 renderSquare :: Assets -> Tile -> Picture
-renderSquare assets sq = traceShow assets (fromJust $ M.lookup (nameGetter sq) assets)
+renderSquare assets sq = fromJust $ M.lookup (nameGetter sq) assets
 
 number :: [[a]] -> [[((Int,Int),a)]]
 number = map (map (\(x,(y,z)) -> ((x,y),z))) . zipWith (zip . repeat) [1..] . map (zip [1..])
 
 drawAtPos ::  (Int,Int) -> Picture -> Picture
-drawAtPos (x,y) = translate (32 * fromIntegral x - 30) ((-32) * fromIntegral y - 18) 
+drawAtPos (x,y) = let
+  x' = 32 * (fromIntegral x - 30)
+  y' = 32 * (fromIntegral y - 18)
+  in traceShow (x',y') $ translate x' y'
 
 nameGetter :: Tile -> String
 nameGetter (Stone _) = "stone.png.bmp"
-nameGetter (Ore o _) = traceShowId $ o ++ ".png.bmp"
+nameGetter (Ore o _) = o ++ ".png.bmp"
 
 renderGrid :: Int -> Int -> Assets -> GridState Picture 
 renderGrid x y assets = do
