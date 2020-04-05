@@ -14,6 +14,7 @@ renderSquare assets sq = let
   baseImage = fromJust $ M.lookup (nameGetter sq) assets
   in case sq of
     Stone h -> Pictures [baseImage,color (makeColor 0 0 0 (0.2 * fromIntegral h/100)) (rectangleSolid 32 32)]
+    Ore _ h -> Pictures [baseImage,color (makeColor 0 0 0 (0.2 * fromIntegral h/100)) (rectangleSolid 32 32)]
     _ -> baseImage
 
 number :: [[a]] -> [[((Int,Int),a)]]

@@ -9,9 +9,9 @@ import Player
 
 make_noise :: Int -> Perlin
 make_noise s = let seed = s
-                   octaves = 4
-                   scale = 0.5
-                   persistence = 0.5
+                   octaves = 6
+                   scale = 0.05
+                   persistence = 0.6
                in perlin seed octaves scale persistence
 
 world_noise = make_noise 42
@@ -30,7 +30,7 @@ new_world = World {
 }
 
 generate_tile :: (Int,Int) -> Tile
-generate_tile (x,y) = let noise = noiseValue world_noise (fromIntegral x,fromIntegral y,0)
+generate_tile (x,y) = let noise = noiseValue world_noise (fromIntegral x+10000,fromIntegral y+10000,0)
                           hardness = min 100 (100 * (noise + 1)/2 + 0.0005*(fromIntegral y))
                           noise' = noiseValue ore_noise (fromIntegral x, fromIntegral y,0)
                           ore = min 100 (100 * (noise' + 1)/2)
