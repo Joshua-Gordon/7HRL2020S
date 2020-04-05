@@ -16,10 +16,14 @@ useStuff ((name,needed):xs) inv
     where
       have = howManny inv name
 
-craft :: Recipie -> Inventory -> (Bool,Inventory)
-craft (comp,makes) inv = case useStuff comp inv of
-  Just inv' -> (True,M.insert makes 1 inv')
-  Nothing -> (False,inv)
+craft :: Recipie -> Player -> Player
+craft (comp,makes) p = let inv = player_inv p
+                       in case useStuff comp inv of
+                        Just inv' -> case makes of
+                            "fuel cell" -> p{player_inv=M.insert makes 1 inv',player_power = min (player_power_max p) (player_power p + 25)}
+                            "entropy mitigator" -> p{player_inv=M.insert makes 1 inv',player_hull = min (player_hull_max p) (player_hull p + 25)}
+                            _ -> p{player_inv=M.insert makes 1 inv'}
+                        Nothing -> p
 
 pickup :: String -> Int -> Inventory -> Inventory
 pickup name amount inv = M.insert name (howManny inv name + amount) inv
@@ -36,4 +40,11 @@ recipes = [
     ([("steel",15)],"steel hull"),
     ([("depleted uranium",10),("redstone",2)],"depleted uranium drill"),
     ([("depleted uranium",15)],"depleted uranium hull"),
-    ([("diamond",10),("redstone",2)],"diamond drill")]
+    ([("diamond",10),("redstone",2)],"diamond drill"),
+    ([("diamond",15)],"diamond hull"),
+    ([("gold",10),("netherite",10),("diamond drill",1)],"netherite drill"),
+    ([("gold",15),("netherite",15),("diamond hull",1)],"netherite hull"),
+    ([("iron",5),("gold",1)],"radiator I"),
+    ([("gold",10),("redstone",10),("steel",5)],"radiator II"),
+    ([("diamond",1),("gold",15),("redstone",5)],"radiator III"),
+    ([("iron",10),("coal",15)],"portable smeltery")]
