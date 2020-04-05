@@ -26,7 +26,7 @@ new_player = Player {
 
 tick_heat :: Player -> Player
 tick_heat p = let u = fromJust $ (player_inv p) !? "uranium"
-              in p{player_heat=player_heat p + u `div` 2,player_heat_immune = if player_heat_immune p == 0 then 0 else player_heat_immune p - 1}
+              in p{player_heat=max 0 $ player_heat p + u `div` 2 - radiator p,player_heat_immune = if player_heat_immune p == 0 then 0 else player_heat_immune p - 1}
 
 heat_damage :: Player -> Player
 heat_damage p = let heat_diff = (player_heat p) - (heat_thresh p)

@@ -43,9 +43,11 @@ urDed w = let
   pow = player_power p
   in hp < 0 || pow < 0
 
+doHeat :: World -> World
+doHead w = w{player = tick_heat . heat_damage $ player w}
+
 tickWorld :: Float -> World -> World
-tickWorld t w = let w' = if | urDed w -> error "Ur ded lol (get good)"
-                            | not (isMining w) -> w
-                            | progress w > 0.5 ->  (mine w){progress=0}
-                            | otherwise ->  w{progress=progress w + t}
-                in w'{player = tick_heat . heat_damage $ player w'}
+tickWorld t w = if | urDed w -> error "Ur ded lol (get good)"
+                   | not (isMining w) -> w
+                   | progress w > 0.5 ->  (doHeat . mine $ w){progress=0}
+                   | otherwise ->  w{progress=progress w + t}

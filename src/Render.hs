@@ -56,7 +56,7 @@ infoPanel assets p =
       smelter = text (if has_smelt p then "Smelter" else "Smeltern't")
       drill = text (printf "Drill: %d" (drill_level p))
   in
-    translate 640 900 $ Pictures [translate 150 (-100) menu_bg, color white $ scale 0.3 0.3 (arrangeBoxes [hull, power, heat, endothermic, radiator', smelter, drill] 0)]
+    translate 200 200 $ Pictures [translate 150 (-100) menu_bg, color white $ scale 0.3 0.3 (arrangeBoxes [hull, power, heat, endothermic, radiator', smelter, drill] 0)]
 
 renderWorld :: World -> Picture
 renderWorld w = let p = player w
