@@ -21,5 +21,18 @@ craft (comp,makes) inv = case useStuff comp inv of
   Just inv' -> M.insert makes 1 inv' 
   Nothing -> inv
 
-pickup :: String -> Int -> Inventory -> Inventory
-pickup name amount inv = M.insert name (howManny inv name + amount) inv
+pickup :: String -> Int -> Player -> Player
+pickup name amount p =
+  let 
+    inv = player_inv p
+    cap = inv_cap p
+    used = spaceUsed inv
+    spaceLeft = cap - used
+    amount' = min spaceLeft amount
+  in p{player_inv=M.insert name (howManny inv name + amount') inv}
+
+has :: String -> Inventory -> Bool
+has name inv = isJust $ M.lookup name inv
+
+spaceUsed :: Inventory -> Int
+spaceUsed inv = sum $ map snd (M.toList inv)
