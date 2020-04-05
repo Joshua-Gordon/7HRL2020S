@@ -58,5 +58,6 @@ data Menu  = Menu {
     resource_display :: Picture,
     world :: World,
     is_paused :: Bool,
-    debug_mouse :: Picture
+    debug_mouse :: Picture,
+    just_crafted :: Bool
 }

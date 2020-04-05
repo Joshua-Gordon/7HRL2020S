@@ -18,7 +18,7 @@ new_player = Player {
     player_inv = fromList [
         ("uranium",0)
     ],
-    radiator = 1,
+    radiator = 3,
     inv_cap = 40,
     has_smelt = False,
     drill_level = 20

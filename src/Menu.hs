@@ -50,7 +50,8 @@ initialMenu assets w = Menu {
         world = w,
         is_paused = False,
         resource_display = Blank,
-        debug_mouse = Color green $ Circle 10
+        debug_mouse = Color green $ Circle 10,
+        just_crafted = False
         }
 
 renderMenu :: Menu -> Picture
@@ -63,19 +64,20 @@ handleMenuEvent (EventKey (Char 'o') _ _ _) m = m{is_paused=False}
 handleMenuEvent e m| not $ is_paused m = m{world=handleEvent e (world m)}
 handleMenuEvent (EventKey (MouseButton WheelUp) _ _ _) m = m{scroll_pos= (scroll_pos m - 45)}
 handleMenuEvent (EventKey (MouseButton WheelDown) _ _ _) m = m{scroll_pos=(scroll_pos m + 45)}
-handleMenuEvent (EventKey (MouseButton LeftButton) _ _ (x,y)) m = handleClick x y m
+handleMenuEvent (EventKey (MouseButton LeftButton) Down _ (x,y)) m = handleClick x y m
+handleMenuEvent (EventKey (MouseButton LeftButton) Up _ (x,y)) m = m{just_crafted=False}
 handleMenuEvent _ m = m
 
 updateMenu :: Float -> Menu -> Menu
 updateMenu f m = displayResources m{world=tickWorld f (world m),item_boxes=Translate (-300) (-400) $ arrangeItemBoxes (fmap (buildItemBox (player_inv . player $ (world m))) recipes) 0}
 
 handleClick :: Float -> Float -> Menu -> Menu
-handleClick x y m = traceShow (x,y) $ if x > -300 && x < 700 
+handleClick x y m = traceShow (x,y) $ if x > -300 && x < 700 && not (just_crafted m )
                         then let recipeIndex = fromIntegral . toInteger . round $ (400 + y - fromIntegral (scroll_pos m)) / 50
                              in if recipeIndex < (fromIntegral $ length recipes) && recipeIndex >= 0
                                 then let w = world m
                                          p = player w
                                          p' = craft (recipes !! recipeIndex) p
-                                     in traceShow recipeIndex m{world=w{player=p'}, debug_mouse = Translate x y $ Color green $ Circle 10}
+                                     in traceShow recipeIndex m{world=w{player=p'}, debug_mouse = Translate x y $ Color green $ Circle 10, just_crafted = True}
                                 else m{debug_mouse = Translate x y $ Color green $ Circle 10}
                         else m
