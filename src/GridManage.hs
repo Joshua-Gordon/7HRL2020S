@@ -1,5 +1,7 @@
 module GridManage where
 
+import Types
+
 import Control.Monad.State
 import qualified Data.Map as M
 
@@ -12,7 +14,6 @@ expandState getter setter s = do
   put b2
   return c
 
-type GridState square a = State (M.Map (Int,Int) square) a
 
 querry :: (Int -> Int -> square) -> Int -> Int ->  GridState square square
 querry generator x y = do
