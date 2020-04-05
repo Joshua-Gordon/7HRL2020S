@@ -31,6 +31,8 @@ mine w =
           }
 
 mineHardness :: Int -> Player -> Player
+mineHardness h p = p{player_heat=player_heat p + round (0.3 * sqrt (fromIntegral h))}
+
 isMining :: World -> Bool
 isMining w = or [up w,down w,left w,right w]
 
