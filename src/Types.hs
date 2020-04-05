@@ -1,6 +1,7 @@
 module Types where
 import Control.Monad.State
 import qualified Data.Map as M
+import Graphics.Gloss
 
 data Tile = Stone Int | Ore String Int
 
@@ -11,6 +12,7 @@ type GridState a = State TileMap a
 type Inventory = M.Map String Int
 type Components = [(String,Int)]
 type Recipie = (Components,String)
+type Assets = M.Map String Picture
 
 data World = World {
      worldMap :: TileMap
@@ -20,6 +22,7 @@ data World = World {
     ,left :: Bool
     ,right :: Bool
     ,progress :: Float
+    ,assets :: Assets
 }
 
 data Player = Player {
