@@ -13,6 +13,7 @@ main :: IO ()
 main = do
   loadedAssets <- loadAssets
   let w=new_world{assets=loadedAssets}
-  play FullScreen black 30 new_world renderWorld handleEvent tickWorld
+  print $ assets w
+  play FullScreen black 30 w renderWorld handleEvent tickWorld
 
 
