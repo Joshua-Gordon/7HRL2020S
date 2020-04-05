@@ -12,12 +12,12 @@ renderSquare :: Assets -> Tile -> Picture
 renderSquare assets sq = fromJust $ M.lookup (nameGetter sq) assets
 
 number :: [[a]] -> [[((Int,Int),a)]]
-number = map (map (\(x,(y,z)) -> ((x,y),z))) . zipWith (zip . repeat) [1..] . map (zip [1..])
+number = map (map (\(y,(x,z)) -> ((x,y),z))) . zipWith (zip . repeat) [0..] . map (zip [0..])
 
 drawAtPos ::  (Int,Int) -> Picture -> Picture
 drawAtPos (x,y) = let
   x' = 32 * (fromIntegral x - 30)
-  y' = 32 * (fromIntegral y - 18)
+  y' = 32 * (fromIntegral y - 30)
   in traceShow (x',y') $ translate x' y'
 
 nameGetter :: Tile -> String
