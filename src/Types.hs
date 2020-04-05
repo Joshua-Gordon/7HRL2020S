@@ -4,8 +4,10 @@ import qualified Data.Map as M
 
 data Tile = Stone Int | Ore String Int
 
-type GridState square a = State (M.Map (Int,Int) square) a
+type TileMap = M.Map (Int,Int) Tile
+
+type GridState a = State TileMap a
 
 data World = World {
-    worldMap :: GridState Tile [[Tile]]
+    worldMap :: TileMap
 }
