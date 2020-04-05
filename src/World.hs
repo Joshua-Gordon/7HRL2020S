@@ -17,8 +17,8 @@ make_noise s = let seed = s
 world_noise = make_noise 42
 ore_noise   = make_noise 43
 
-new_world :: World
-new_world = World {
+new_world :: IO World
+new_world = return $ World {
      worldMap=M.empty
     ,player=new_player
     ,up=False
@@ -26,6 +26,7 @@ new_world = World {
     ,left=False
     ,right=False
     ,progress=0
+    ,assets=M.empty
 }
 
 generate_tile :: (Int,Int) -> Tile

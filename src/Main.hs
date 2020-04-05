@@ -5,10 +5,15 @@ import World
 import Inventory
 import Render
 import Tick
-import Graphics.Gloss.Interface.Pure.Game
+import Graphics.Gloss.Interface.IO.Game
 import Events
-
-renderer=undefined
+import Loader
 
 main :: IO ()
-main = play FullScreen black 30 new_world renderer handleEvent tickWorld
+main = do
+  loadedAssets <- loadAssets
+  w <- new_world
+  let w=w{assets=loadedAssets}
+  playIO FullScreen black 30 new_world renderWorld handleEvent tickWorld
+
+

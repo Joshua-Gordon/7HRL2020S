@@ -1,6 +1,9 @@
 module Types where
 import Control.Monad.State
 import qualified Data.Map as M
+import Graphics.Gloss
+
+import Graphics.Gloss
 
 data Tile = Stone Int | Ore String Int
 
@@ -17,6 +20,8 @@ data Recipie = Recipie {
    ,description :: String
 }
 
+type Assets = M.Map String Picture
+
 data World = World {
      worldMap :: TileMap
     ,player :: Player
@@ -25,6 +30,7 @@ data World = World {
     ,left :: Bool
     ,right :: Bool
     ,progress :: Float
+    ,assets :: Assets
 }
 
 data Player = Player {
@@ -45,6 +51,8 @@ data Player = Player {
 }
 
 data Menu  = Menu {
-    scroll_pos :: Int
+    scroll_pos :: Int,
+    background :: Picture,
+    item_boxes :: [Picture]
 }
 

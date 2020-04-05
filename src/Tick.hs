@@ -26,8 +26,10 @@ mine w =
 mineHardness :: Int -> Player -> Player
 mineHardness hardness p = p{player_heat=player_heat p + (hardness - drill_level p) `div` 5,player_power=player_power p - round (sqrt (fromIntegral hardness))}
 
-tickWorld :: Float -> World -> World
-tickWorld t w 
-  | progress w > 0.5 = (mine w){progress=0}
-  | otherwise = w{progress=progress w + t}
+tickWorld :: Float -> IO World -> IO (IO World)
+tickWorld t iw = do
+                  w <- iw
+                  return $ if progress w > 0.5 
+                      then return $ (mine w){progress=0}
+                      else return $ w{progress=progress w + t}
 
