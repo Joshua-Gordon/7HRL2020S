@@ -20,7 +20,10 @@ data World = World {
 data Player = Player {
     player_x :: Int,
     player_y :: Int,
+    player_hull_max :: Int,
     player_hull :: Int,
+    player_power :: Int,
+    player_power_max :: Int,
     player_heat :: Int,
     heat_thresh :: Int,
     player_inv :: Inventory,

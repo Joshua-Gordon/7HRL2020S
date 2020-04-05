@@ -16,10 +16,18 @@ useStuff ((name,needed):xs) inv
     where
       have = howManny inv name
 
-craft :: Recipie -> Inventory -> Inventory
+craft :: Recipie -> Inventory -> (Bool,Inventory)
 craft (comp,makes) inv = case useStuff comp inv of
-  Just inv' -> M.insert makes 1 inv' 
-  Nothing -> inv
+  Just inv' -> (True,M.insert makes 1 inv')
+  Nothing -> (False,inv)
 
 pickup :: String -> Int -> Inventory -> Inventory
 pickup name amount inv = M.insert name (howManny inv name + amount) inv
+
+recipes :: [Recipie]
+recipes = [
+    ([("uranium",1)],"fuel cell"),
+    ([("iron",1),("redstone",1)],"entropy mitigator"),
+    ([("gold",1),("uranium",1)],"endothermic resonator"),
+    ([("iron",1),("coal",2)],"steel")
+]
