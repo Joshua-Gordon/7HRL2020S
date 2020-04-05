@@ -7,6 +7,8 @@ import Data.Bits
 import System.Random
 import Player
 
+import System.IO.Unsafe
+
 make_noise :: Int -> Perlin
 make_noise s = let seed = s
                    octaves = 6
@@ -14,8 +16,8 @@ make_noise s = let seed = s
                    persistence = 0.6
                in perlin seed octaves scale persistence
 
-world_noise = make_noise 42
-ore_noise   = make_noise 43
+world_noise = make_noise (unsafePerformIO randomIO)
+ore_noise   = make_noise (unsafePerformIO randomIO)
 
 new_world :: World
 new_world = World {
