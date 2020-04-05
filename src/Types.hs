@@ -19,6 +19,9 @@ data Player = Player {
     player_hull :: Int,
     player_heat :: Int,
     heat_thresh :: Int,
-    player_inv :: Inventory
+    player_inv :: Inventory,
+    radiator :: Int,
+    inv_cap :: Int,
+    has_smelt :: Bool
 }
 

@@ -22,14 +22,14 @@ Inventory cap starts at 40.
 If you hit cap on uranium you fission
 
 Ores:
-    Uranium
-    Iron
-    Coal
-    Redstone
-    Gold
-    Diamond
-    Netherite
-    Obamium
+    Uranium .35
+    Iron .65
+    Coal .75
+    Redstone .85
+    Gold .925
+    Diamond .95
+    Netherite .975
+    Obamium 1
 
 Recipes:
     Fuel cell: 1x uranium (+25 power)
