@@ -13,6 +13,7 @@ handleEvent (EventKey key ks' modifiers _) w = let ks = (ks' == Down)
                                                  Char 'd' -> w{right=ks}
                                                  (SpecialKey KeySpace) -> w{venting=ks}
                                                  _ -> w
+handleEvent (EventResize dims) w = w {window_size= dims}
 handleEvent _ w = w
 
 

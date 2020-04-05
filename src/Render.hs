@@ -43,20 +43,26 @@ arrangeBoxes :: [Picture] -> Float -> Picture
 arrangeBoxes [] _ = Blank
 arrangeBoxes (p:ps) offset = Pictures [translate 0 offset p, arrangeBoxes ps (offset-150)]
 
-infoPanel :: Assets -> Player -> Picture
-infoPanel assets p = 
+infoPanel :: World -> Player -> Picture
+infoPanel w p = 
   -- hope this rectangle is large enough lmao
-  let menu_bg = color black $ rectangleSolid 370 500
+  let (bw, bh) = (300.0 :: Float, 400.0 :: Float)
+      (sx, sy) = window_size w
+      sx' = fromIntegral sx
+      sy' = fromIntegral sy
+      xoff = (sx' / 2) - (bw / 2)
+      yoff = (sy' / 2) - (bh / 2)
+      menu_bg = color black $ rectangleSolid bw bh
       hull = text (printf "Hull: %d/%d" (player_hull p) (player_hull_max p))
       power = text (printf "Power: %d/%d" (player_power p) (player_power_max p))
       heat = text (printf "Heat: %d/%d" (player_heat p) (heat_thresh p))
       endothermic = if player_heat_immune p > 0 then text "Resonator Running"
                        else text "Resonator Missing"
-      radiator' = text (printf "Radiator Level: %d" (Types.radiator p))
+      radiator' = text (printf "Radiator Level: %d" (radiator p))
       smelter = text (if has_smelt p then "Smelter" else "Smeltern't")
       drill = text (printf "Drill: %d" (drill_level p))
   in
-    translate 200 200 $ Pictures [translate 150 (-100) menu_bg, color white $ scale 0.3 0.3 (arrangeBoxes [hull, power, heat, endothermic, radiator', smelter, drill] 0)]
+    translate xoff yoff $ Pictures [menu_bg, translate (-75) 0 $ color white $ scale 0.15 0.15 (arrangeBoxes [hull, power, heat, endothermic, radiator', smelter, drill] 0)]
 
 renderWorld :: World -> Picture
 renderWorld w = let p = player w
@@ -64,5 +70,5 @@ renderWorld w = let p = player w
                     y = player_y p
                     pic = evalState (renderGrid x y (assets w)) (worldMap w)
                     playerPic = fromJust $ M.lookup "player.png.bmp" (assets w)
-                in Pictures [pic,playerPic, infoPanel (assets w) (player w)]
+                in Pictures [pic,playerPic, infoPanel w (player w)]
 

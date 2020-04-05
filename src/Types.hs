@@ -30,6 +30,7 @@ data World = World {
     ,venting :: Bool
     ,progress :: Float
     ,assets :: Assets
+    ,window_size :: (Int, Int)
 }deriving Show
 
 data Task = Mining | Crawling | Venting
