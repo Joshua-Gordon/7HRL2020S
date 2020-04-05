@@ -12,12 +12,12 @@ renderSquare :: Assets -> Tile -> Picture
 renderSquare assets sq = fromJust $ M.lookup (nameGetter sq) assets
 
 number :: [[a]] -> [[((Int,Int),a)]]
-number = map (map (\(x,(y,z)) -> ((x,y),z))) . zipWith (zip . repeat) [1..] . map (zip [1..])
+number = map (map (\(y,(x,z)) -> ((x,y),z))) . zipWith (zip . repeat) [0..] . map (zip [0..])
 
 drawAtPos ::  (Int,Int) -> Picture -> Picture
 drawAtPos (x,y) = let
-  x' = 32 * (fromIntegral x - 30)
-  y' = 32 * (fromIntegral y - 18)
+  x' = 32 * (fromIntegral x)
+  y' = 32 * (fromIntegral y)
   in traceShow (x',y') $ translate x' y'
 
 nameGetter :: Tile -> String
@@ -26,7 +26,7 @@ nameGetter (Ore o _) = o ++ ".png.bmp"
 
 renderGrid :: Int -> Int -> Assets -> GridState Picture 
 renderGrid x y assets = do
-  squares <- getGrid generator (x-30) (y-18) (x+30) (y+18)
+  squares <- getGrid generator (x-100) (y-100) (x+100) (y+100)
   let numbered = number squares :: [[((Int,Int),Tile)]]
   let pics = map (map (\(p,s) -> drawAtPos p (renderSquare assets s))) numbered
   return $ Pictures (concat pics)
