@@ -14,7 +14,7 @@ type Recipie = (Components,String)
 
 data World = World {
      worldMap :: TileMap
-    ,inventory :: Inventory
+    ,player :: Player
 }
 
 data Player = Player {

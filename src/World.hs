@@ -5,6 +5,7 @@ import qualified Data.Map as M
 import Numeric.Noise.Perlin
 import Data.Bits
 import System.Random
+import Player
 
 make_noise :: Int -> Perlin
 make_noise s = let seed = s
@@ -18,7 +19,8 @@ ore_noise   = make_noise 43
 
 new_world :: World
 new_world = World {
-    worldMap=M.empty
+     worldMap=M.empty
+    ,player=new_player
 }
 
 generate_tile :: (Int,Int) -> Tile
