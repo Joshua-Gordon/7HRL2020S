@@ -57,6 +57,7 @@ renderMenu :: Menu -> Picture
 renderMenu m = if is_paused m then Pictures [background m, Translate 0 (fromIntegral (scroll_pos m)) $ item_boxes m, resource_display m, debug_mouse m] else renderWorld (world m) 
     
 handleMenuEvent :: Event -> Menu -> Menu
+handleMenuEvent (EventKey (SpecialKey KeyEsc) Down _ _) m = m{is_paused=False}
 handleMenuEvent (EventKey (Char 'p') _ _ _) m = m{is_paused=True}
 handleMenuEvent (EventKey (Char 'o') _ _ _) m = m{is_paused=False}
 handleMenuEvent e m| not $ is_paused m = m{world=handleEvent e (world m)}

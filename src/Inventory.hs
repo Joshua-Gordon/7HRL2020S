@@ -33,9 +33,9 @@ drill_level=max (drill_level p) 40,player_power=player_power p - 40}
                             "diamond hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 250, player_hull = max (player_hull p) 250, inv_cap = max (inv_cap p) 100}
                             "netherite drill" -> p{player_inv=M.insert makes 1 inv',drill_level=max (drill_level p) 100,player_power=player_power p - 120}
                             "netherite hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 300, player_hull = max (player_hull p) 300, inv_cap = max (inv_cap p) 120}
-                            "radiator I" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 3}
-                            "radiator II" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 6}
-                            "radiator III" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 9}
+                            "radiator I" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 6}
+                            "radiator II" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 9}
+                            "radiator III" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 12}
                             "unstable reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 150}
                             "unsafe reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 200}
                             "irresponsible reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 300}
