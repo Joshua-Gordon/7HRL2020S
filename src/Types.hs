@@ -26,9 +26,11 @@ data Player = Player {
     player_power_max :: Int,
     player_heat :: Int,
     heat_thresh :: Int,
+    player_heat_immune :: Int,
     player_inv :: Inventory,
     radiator :: Int,
     inv_cap :: Int,
-    has_smelt :: Bool
+    has_smelt :: Bool,
+    drill_level :: Int
 }
 

@@ -22,6 +22,10 @@ craft (comp,makes) p = let inv = player_inv p
                         Just inv' -> case makes of
                             "fuel cell" -> p{player_inv=M.insert makes 1 inv',player_power = min (player_power_max p) (player_power p + 25)}
                             "entropy mitigator" -> p{player_inv=M.insert makes 1 inv',player_hull = min (player_hull_max p) (player_hull p + 25)}
+                            "endothermic resonator" -> p{player_inv=M.insert makes 1 inv',player_heat_immune=5}
+                            "steel" -> p{player_inv=M.insert makes 1 inv',player_power=player_power p - 25}
+                            "steel drill" -> p{player_inv=M.insert makes 1 inv',
+drill_level=max (drill_level p) 40,player_power=player_power p - 40}
                             _ -> p{player_inv=M.insert makes 1 inv'}
                         Nothing -> p
 
