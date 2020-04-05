@@ -52,6 +52,6 @@ data Menu  = Menu {
     scroll_pos :: Int,
     background :: Picture,
     item_boxes :: Picture,
-    world :: World
+    world :: World,
+    is_paused :: Bool
 }
-

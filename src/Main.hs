@@ -8,6 +8,7 @@ import Tick
 import Graphics.Gloss.Interface.Pure.Game
 import Events
 import Loader
+import Menu
 
 main :: IO ()
 main = do
