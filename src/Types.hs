@@ -7,5 +7,5 @@ data Tile = Stone Int | Ore String Int
 type GridState square a = State (M.Map (Int,Int) square) a
 
 data World = World {
-    map :: GridState Tile [[Tile]]
+    worldMap :: GridState Tile [[Tile]]
 }
