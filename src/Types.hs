@@ -3,7 +3,7 @@ import Control.Monad.State
 import qualified Data.Map as M
 import Graphics.Gloss
 
-data Tile = Stone Int | Ore String Int
+data Tile = Stone Int | Ore String Int | Empty
 
 type TileMap = M.Map (Int,Int) Tile
 
