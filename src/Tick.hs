@@ -49,5 +49,5 @@ doHeat w = w{player = tick_heat . heat_damage $ player w}
 tickWorld :: Float -> World -> World
 tickWorld t w = if | urDed w -> error "Ur ded lol (get good)"
                    | not (isMining w) -> w
-                   | progress w > 0.5 ->  (doHeat . mine $ w){progress=0}
+                   | progress w > 0.2 ->  (doHeat . mine $ w){progress=0}
                    | otherwise ->  w{progress=progress w + t}
