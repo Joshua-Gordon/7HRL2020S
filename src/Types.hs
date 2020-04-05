@@ -8,6 +8,12 @@ type TileMap = M.Map (Int,Int) Tile
 
 type GridState a = State TileMap a
 
+type Inventory = M.Map String Int
+type Components = [(String,Int)]
+type Recipie = (Components,String)
+
 data World = World {
-    worldMap :: TileMap
+     worldMap :: TileMap
+    ,inventory :: Inventory
 }
+

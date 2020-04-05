@@ -15,7 +15,7 @@ expandState getter setter s = do
   return c
 
 
-querry :: (Int -> Int -> square) -> Int -> Int ->  GridState square square
+querry :: (Int -> Int -> Tile) -> Int -> Int ->  GridState Tile
 querry generator x y = do
   saved <- get
   case M.lookup (x,y) saved of
@@ -24,10 +24,10 @@ querry generator x y = do
       square = generator x y
       in modify (M.insert (x,y) square) >> return square
 
-setSquare :: Int -> Int -> square -> GridState square ()
-setSquare x y square = modify $ M.insert (x,y) square
+setTile :: Int -> Int -> Tile -> GridState ()
+setTile x y square = modify $ M.insert (x,y) square
 
-getGrid :: (Int -> Int -> square) -> Int -> Int -> Int -> Int -> GridState square [[square]]
+getGrid :: (Int -> Int -> Tile) -> Int -> Int -> Int -> Int -> GridState [[Tile]]
 getGrid generateor xMin yMin xMax yMax = let
   querry' = uncurry $ querry generateor
   in (mapM.mapM)  querry' [[ (x,y) | x <- [xMin..xMax] ] | y <- [yMin..yMax] ]
