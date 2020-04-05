@@ -44,7 +44,7 @@ urDed w = let
   in hp < 0 || pow < 0
 
 doHeat :: World -> World
-doHead w = w{player = tick_heat . heat_damage $ player w}
+doHeat w = w{player = tick_heat . heat_damage $ player w}
 
 tickWorld :: Float -> World -> World
 tickWorld t w = if | urDed w -> error "Ur ded lol (get good)"
