@@ -14,21 +14,21 @@ import Tick
 import Loader
 
 box :: Picture
-box = Polygon [(0,0),(800,0),(800,150),(0,150)]
+box = Color white $ Polygon [(0,0),(1000,0),(1000,50),(0,50)]
 
-buildItemBox :: Recipie -> Picture
-buildItemBox r = let i = ingredients r
-                     t = Scale (0.1) (0.1) $ Text (show i ++ ": " ++ name r ++ "\n" ++ description r)
-                 in Pictures [box,Color red t]
+buildItemBox :: Inventory -> Recipie -> Picture
+buildItemBox inv r = let i = ingredients r
+                         t = Scale (0.1) (0.1) $ Text (show i ++ ": " ++ name r ++ "x" ++ show (howManny inv (name r)) ++ "    \n" ++ description r)
+                     in Pictures [box, t]
 
 arrangeItemBoxes :: [Picture] -> Int -> Picture
 arrangeItemBoxes [] _ = Blank
-arrangeItemBoxes (p:ps) offset = Pictures [Translate 0 (fromIntegral offset) p, arrangeItemBoxes ps (offset+150)]
+arrangeItemBoxes (p:ps) offset = Pictures [Translate 0 (fromIntegral offset) p, arrangeItemBoxes ps (offset+50)]
 
 initialMenu :: Map String Picture -> World -> Menu
 initialMenu assets w = Menu {
         scroll_pos = 0,
-        item_boxes = Translate 300 0 $ arrangeItemBoxes (fmap buildItemBox recipes) 0,
+        item_boxes = Translate (-300) (-400) $ arrangeItemBoxes (fmap (buildItemBox (player_inv . player $ w)) recipes) 0,
         background = case assets !? "menu.png.bmp" of
             Just m -> m
             Nothing -> error "Could not load menu image",
@@ -43,7 +43,7 @@ handleMenuEvent :: Event -> Menu -> Menu
 handleMenuEvent (EventKey (Char 'p') _ _ _) m = m{is_paused=True}
 handleMenuEvent (EventKey (Char 'o') _ _ _) m = m{is_paused=False}
 handleMenuEvent e m| not $ is_paused m = m{world=handleEvent e (world m)}
-handleMenuEvent (EventKey (MouseButton WheelUp) _ _ _) m = m{scroll_pos=max 0 (scroll_pos m - 45)}
+handleMenuEvent (EventKey (MouseButton WheelUp) _ _ _) m = m{scroll_pos= (scroll_pos m - 45)}
 handleMenuEvent (EventKey (MouseButton WheelDown) _ _ _) m = m{scroll_pos=(scroll_pos m + 45)}
 handleMenuEvent _ m = m
 
