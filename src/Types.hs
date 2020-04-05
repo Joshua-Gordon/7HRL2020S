@@ -3,8 +3,6 @@ import Control.Monad.State
 import qualified Data.Map as M
 import Graphics.Gloss
 
-import Graphics.Gloss
-
 data Tile = Stone Int | Ore String Int
 
 type TileMap = M.Map (Int,Int) Tile
@@ -53,6 +51,7 @@ data Player = Player {
 data Menu  = Menu {
     scroll_pos :: Int,
     background :: Picture,
-    item_boxes :: [Picture]
+    item_boxes :: Picture,
+    world :: World
 }
 

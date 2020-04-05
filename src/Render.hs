@@ -26,7 +26,7 @@ nameGetter (Ore o _) = o ++ ".png.bmp"
 
 renderGrid :: Int -> Int -> Assets -> GridState Picture 
 renderGrid x y assets = do
-  squares <- getGrid generator (x-30) (y-18) (x+30) (y+18)
+  squares <- getGrid generator (x-30) (y-30) (x+30) (y+30)
   let numbered = number squares :: [[((Int,Int),Tile)]]
   let pics = map (map (\(p,s) -> drawAtPos p (renderSquare assets s))) numbered
   return $ Pictures (concat pics)
