@@ -4,8 +4,11 @@ import Graphics.Gloss.Interface.IO.Game
 
 import Types
 import Player
+import Inventory
 
 import Loader
+
+buildItemBox 
 
 initialMenu :: IO Menu
 initialMenu = do
@@ -14,7 +17,7 @@ initialMenu = do
         scroll_pos = 0,
         item_boxes = [],
         background = case assets ?! "menu.png.bmp" of
-            Just m -> m,
+            Just m -> m
             Nothing -> error "Could not load menu image"
     }
 
