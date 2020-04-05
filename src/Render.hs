@@ -36,5 +36,6 @@ renderWorld w = let p = player w
                     x = player_x p
                     y = player_y p
                     pic = evalState (renderGrid x y (assets w)) (worldMap w)
-                in pic
+                    playerPic = fromJust $ M.lookup "player.png.bmp" (assets w)
+                in Pictures [pic,playerPic]
 

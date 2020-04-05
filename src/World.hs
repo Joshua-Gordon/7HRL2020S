@@ -35,7 +35,7 @@ generate_tile (x,y) = let noise = noiseValue world_noise (fromIntegral x,fromInt
                           noise' = noiseValue ore_noise (fromIntegral x, fromIntegral y,0)
                           ore = min 100 (100 * (noise' + 1)/2)
                           int_hardness = fromIntegral . toInteger . round $ hardness
-                      in if hardness >= 70 && ore >= 60
+                      in if hardness >= 80 && ore >= 60
                         then let seed = (x `div` 8) `xor` (y `div` 8)
                                  gen = mkStdGen seed
                                  val = head $ randoms gen :: Double
