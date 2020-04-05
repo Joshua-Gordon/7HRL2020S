@@ -17,7 +17,7 @@ useStuff ((name,needed):xs) inv
       have = howManny inv name
 
 craft :: Recipie -> Player -> Player
-craft (comp,makes) p = let inv = player_inv p
+craft Recipie {ingredients= comp,name= makes} p = let inv = player_inv p
                        in case useStuff comp inv of
                         Just inv' -> case makes of
                             "fuel cell" -> p{player_inv=M.insert makes 1 inv',player_power = min (player_power_max p) (player_power p + 25)}
@@ -62,24 +62,24 @@ spaceUsed inv = sum $ map snd (M.toList inv)
 recipes :: [Recipie]
 recipes = 
   [
-    (Recipie [("uranium",1)],"fuel cell", "pre-packaged uranium with some control electronics. it glows green, which is probably fine."),
-    (Recipie [("iron",1),("redstone",1)],"entropy mitigator","this machine unmelts bits of the ship. pretty handy when it starts melting!"),
-    (Recipie [("gold",1),("uranium",1)],"endothermic resonator", "this machine takes heat into it from the environment."),
-    (Recipie [("iron",1),("coal",2)],"steel", "carbonized iron. stronger than the pure stuff!"),
-    (Recipie [("uranium",5),("redstone",5),("steel",1)],"depleted uranium", "packaged low-purity uranium. not useful as fuel, but strong!"),
-    (Recipie [("obamium",30)],"obamids", "purified tetrahedral crystal of obamium. you stare into it and think you can see the last name of the 44th POTUS."),
-    (Recipie [("steel",10),("redstone",2)],"steel drill", "a drill, like your father used."),
-    (Recipie [("steel",15)],"steel hull", "steel plates shaped to be made into a ship's skin."),
-    (Recipie [("depleted uranium",10),("redstone",2)],"depleted uranium drill", "a standard drill, upgraded with depleted uranium for strength."),
-    (Recipie [("depleted uranium",15)],"depleted uranium hull", "depleted uranium plates shaped to be made into a ship's skin."),
-    (Recipie [("diamond",10),("redstone",2)],"diamond drill", "fancy drill with diamond bits all over it."),
-    (Recipie [("diamond",15)],"diamond hull", "pure crystalline ship-skin."),
-    (Recipie [("gold",10),("netherite",10),("diamond drill",1)],"netherite drill", "diamond drill reinforced with a web of netherite inlay."),
-    (Recipie [("gold",15),("netherite",15),("diamond hull",1)],"netherite hull", "diamond hull reinforced with a web of netherite inlay."),
-    (Recipie [("iron",5),("gold",1)],"radiator I", "spikes of iron in a haphazard arrangement, hopefully this dumps heat into the world faster than the world dumps heat into us."),
-    (Recipie [("gold",10),("redstone",10),("steel",5)],"radiator II", "steel-reinforced gold plates with liquid redstone running through them."),
-    (Recipie [("diamond",1),("gold",15),("redstone",5)],"radiator III", "gold plates with liquid diamond running through them."),
-    (Recipie [("iron",10),("coal",15)],"portable smeltery", "a blast furnace, miniaturized to fit inside the ship."),
-    (Recipie [("steel",5),("uranium",5)],"unstable reactor", "a reactor. you're not sure how long it'll keep working."),
-    (Recipie [("diamond",5),("uranium",10)],"unsafe reactor", "a reactor. it gives you the heebie jeebies just looking at it."),
-    (Recipie [("obamium",1),("netherite",2)],"irresponsible reactor", "a reactor. there is a sticker on it saying 'do not use'. sounds fun!")]
+    Recipie [("uranium",1)] "fuel cell"  "pre-packaged uranium with some control electronics. it glows green, which is probably fine.",
+    Recipie [("iron",1),("redstone",1)] "entropy mitigator" "this machine unmelts bits of the ship. pretty handy when it starts melting!",
+    Recipie [("gold",1),("uranium",1)] "endothermic resonator"  "this machine takes heat into it from the environment.",
+    Recipie [("iron",1),("coal",2)] "steel"  "carbonized iron. stronger than the pure stuff!",
+    Recipie [("uranium",5),("redstone",5),("steel",1)] "depleted uranium"  "packaged low-purity uranium. not useful as fuel, but strong!",
+    Recipie [("obamium",30)] "obamids"  "purified tetrahedral crystal of obamium. you stare into it and think you can see the last name of the 44th POTUS.",
+    Recipie [("steel",10),("redstone",2)] "steel drill"  "a drill, like your father used.",
+    Recipie [("steel",15)] "steel hull"  "steel plates shaped to be made into a ship's skin.",
+    Recipie [("depleted uranium",10),("redstone",2)] "depleted uranium drill"  "a standard drill, upgraded with depleted uranium for strength.",
+    Recipie [("depleted uranium",15)] "depleted uranium hull"  "depleted uranium plates shaped to be made into a ship's skin.",
+    Recipie [("diamond",10),("redstone",2)] "diamond drill"  "fancy drill with diamond bits all over it.",
+    Recipie [("diamond",15)] "diamond hull"  "pure crystalline ship-skin.",
+    Recipie [("gold",10),("netherite",10),("diamond drill",1)] "netherite drill"  "diamond drill reinforced with a web of netherite inlay.",
+    Recipie [("gold",15),("netherite",15),("diamond hull",1)] "netherite hull"  "diamond hull reinforced with a web of netherite inlay.",
+    Recipie [("iron",5),("gold",1)] "radiator I"  "spikes of iron in a haphazard arrangement, hopefully this dumps heat into the world faster than the world dumps heat into us.",
+    Recipie [("gold",10),("redstone",10),("steel",5)] "radiator II"  "steel-reinforced gold plates with liquid redstone running through them.",
+    Recipie [("diamond",1),("gold",15),("redstone",5)] "radiator III"  "gold plates with liquid diamond running through them.",
+    Recipie [("iron",10),("coal",15)] "portable smeltery"  "a blast furnace, miniaturized to fit inside the ship.",
+    Recipie [("steel",5),("uranium",5)] "unstable reactor"  "a reactor. you're not sure how long it'll keep working.",
+    Recipie [("diamond",5),("uranium",10)] "unsafe reactor"  "a reactor. it gives you the heebie jeebies just looking at it.",
+    Recipie [("obamium",1),("netherite",2)] "irresponsible reactor"  "a reactor. there is a sticker on it saying 'do not use'. sounds fun!"]
