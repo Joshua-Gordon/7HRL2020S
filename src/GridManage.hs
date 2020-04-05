@@ -1,6 +1,7 @@
 module GridManage where
 
 import Types
+import World
 
 import Control.Monad.State
 import qualified Data.Map as M
@@ -15,8 +16,11 @@ expandState getter setter s = do
   return c
 
 
-querry :: (Int -> Int -> Tile) -> Int -> Int ->  GridState Tile
-querry generator x y = do
+generator :: Int -> Int -> Tile
+generator = curry generate_tile
+
+querry ::  Int -> Int ->  GridState Tile
+querry x y = do
   saved <- get
   case M.lookup (x,y) saved of
     Just square -> return square
@@ -29,6 +33,6 @@ setTile x y square = modify $ M.insert (x,y) square
 
 getGrid :: (Int -> Int -> Tile) -> Int -> Int -> Int -> Int -> GridState [[Tile]]
 getGrid generateor xMin yMin xMax yMax = let
-  querry' = uncurry $ querry generateor
+  querry' = uncurry querry 
   in (mapM.mapM)  querry' [[ (x,y) | x <- [xMin..xMax] ] | y <- [yMin..yMax] ]
  

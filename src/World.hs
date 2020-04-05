@@ -21,6 +21,11 @@ new_world :: World
 new_world = World {
      worldMap=M.empty
     ,player=new_player
+    ,up=False
+    ,down=False
+    ,left=False
+    ,right=False
+    ,progress=0
 }
 
 generate_tile :: (Int,Int) -> Tile

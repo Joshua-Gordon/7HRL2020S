@@ -15,6 +15,11 @@ type Recipie = (Components,String)
 data World = World {
      worldMap :: TileMap
     ,player :: Player
+    ,up :: Bool
+    ,down :: Bool
+    ,left :: Bool
+    ,right :: Bool
+    ,progress :: Float
 }
 
 data Player = Player {

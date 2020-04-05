@@ -8,9 +8,6 @@ import qualified Data.Map as M
 
 type Assets = M.Map String Picture
 
-generator :: Int -> Int -> Tile
-generator = curry generate_tile
-
 renderSquare :: (Tile -> String) -> Assets -> Tile -> Picture
 renderSquare nameGetter assets sq = fromJust $ M.lookup (nameGetter sq) assets
 
