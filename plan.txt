@@ -5,10 +5,11 @@ Hull is health. Start at 100
 Ship requires power, die if no power Start at 100
 Heat bad, start at 0, limit is 100. Damage over time over a threshold
 Heat threshold starts at 20
-Gain heat each tick from percentage full of uranium times a constant (start at 2)
+Gain heat each tick from uranium / 2
 Gain heat from drilling things greater than drill limit, limit starts at 60
     heat_added = (hardness - limit)/5
 Lose heat per tick equal to radiator value, start at 1
+If you start your turn with x heat above threshold, take x damage and lose x/2 heat
 
 Hardness of stone is min(100,100*(perlin + 1)/2 + other_constant * depth)
 
@@ -33,18 +34,42 @@ Ores:
 Recipes:
     Fuel cell: 1x uranium (+25 power)
     Entropy mitigator: 1x iron, 1x redstone (heals 25)
-    Endothermic resonator: 1x gold, 1x uranium (-20 heat)
+    Endothermic resonator: 1x gold, 1x uranium (dont take heat damage for 5 rounds)
     Steel: 1x iron 2x coal 25 power
-    Depleted uranium: 5x uranium 5x redstone
+    Depleted uranium: 5x uranium 5x redstone 1x steel
+
+
+    Obamids: 30x obamium, nx uranium
 
 Upgrades:
     Steel drill: 10x steel 2x redstone 40 power
-        min_hardness to cause damage: 20
+        min_hardness to cause damage: 40
     Steel hull: 15x steel
         150 health,
         60 inv cap
+    Depleted uranium drill: 10x depleted uranium 2x redstone 80 power
+        min_hardness to cause damage: 60
+    Depleted uranium hull: 15x depleted
+        200 health,
+        80 inv cap
+    Diamond drill: 10x diamonds, 2x redstone, 120 power
+        min_hardness to cause damage: 80
+    Diamond hull: 15x diamonds
+        250 health,
+        100 inv cap
+    Netherite drill: 10x gold, 10x netherite 160 power
+        min_hardness to cause damage: 100
+    Netherite hull: 15x gold, 15x netherite
+        300 health,
+        120 inv cap
+
+
     Radiator I: 5x iron 1x gold
         lose 3 heat per tick
+    Radiator II: 10x gold 10x redstone 5x steel
+        lose 6 heat per tick
+    Radiator III: 1x diamond 15x gold 5x redstone
+        lose 9 heat per tick
     Portable smeltery: 10x iron, 15x coal, 70 power
         20% chance to double ore
 
