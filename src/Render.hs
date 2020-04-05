@@ -4,9 +4,8 @@ import Types
 import Graphics.Gloss
 import Data.Maybe
 import World
+import Control.Monad.State.Lazy
 import qualified Data.Map as M
-
-type Assets = M.Map String Picture
 
 renderSquare :: Assets -> Tile -> Picture
 renderSquare assets sq = fromJust $ M.lookup (nameGetter sq) assets
@@ -27,4 +26,12 @@ renderGrid x y assets = do
   let numbered = number squares :: [[((Int,Int),Tile)]]
   let pics = map (map (\(p,s) -> drawAtPos p (renderSquare assets s))) numbered
   return $ Pictures (concat pics)
+
+renderWorld :: World -> Picture
+renderWorld w = let
+  p = player w
+  x = player_x p
+  y = player_y p
+  pic = evalState (renderGrid x y (assets w)) (worldMap w)
+  in pic
 

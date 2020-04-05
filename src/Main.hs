@@ -7,8 +7,12 @@ import Render
 import Tick
 import Graphics.Gloss.Interface.Pure.Game
 import Events
-
-renderer=undefined
+import Loader
 
 main :: IO ()
-main = play FullScreen black 30 new_world renderer handleEvent tickWorld
+main = do
+  loadedAssets <- loadAssets
+  let w=new_world{assets=loadedAssets}
+  play FullScreen black 30 new_world renderWorld handleEvent tickWorld
+
+

@@ -26,6 +26,7 @@ new_world = World {
     ,left=False
     ,right=False
     ,progress=0
+    ,assets=M.empty
 }
 
 generate_tile :: (Int,Int) -> Tile
