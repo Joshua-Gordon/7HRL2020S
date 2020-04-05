@@ -26,7 +26,6 @@ mine w =
 mineHardness :: Int -> Player -> Player
 mineHardness hardness p = p{player_heat=player_heat p + (hardness - drill_level p) `div` 5,player_power=player_power p - round (sqrt (fromIntegral hardness))}
 
-
 tickWorld :: Float -> World -> World
 tickWorld t w 
   | progress w > 0.5 = (mine w){progress=0}
