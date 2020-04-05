@@ -16,8 +16,8 @@ number = map (map (\(y,(x,z)) -> ((x,y),z))) . zipWith (zip . repeat) [0..] . ma
 
 drawAtPos ::  (Int,Int) -> Picture -> Picture
 drawAtPos (x,y) = let
-  x' = 32 * (fromIntegral x)
-  y' = 32 * (fromIntegral y)
+  x' = 32 * (fromIntegral x - 30)
+  y' = 32 * (fromIntegral y - 30)
   in traceShow (x',y') $ translate x' y'
 
 nameGetter :: Tile -> String
@@ -26,7 +26,7 @@ nameGetter (Ore o _) = o ++ ".png.bmp"
 
 renderGrid :: Int -> Int -> Assets -> GridState Picture 
 renderGrid x y assets = do
-  squares <- getGrid generator (x-100) (y-100) (x+100) (y+100)
+  squares <- getGrid generator (x-30) (y-30) (x+30) (y+30)
   let numbered = number squares :: [[((Int,Int),Tile)]]
   let pics = map (map (\(p,s) -> drawAtPos p (renderSquare assets s))) numbered
   return $ Pictures (concat pics)
