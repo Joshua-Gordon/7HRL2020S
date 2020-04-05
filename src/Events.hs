@@ -3,16 +3,15 @@ import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game
 import Types
 
-handleEvent :: Event -> IO World -> IO (IO World)
-handleEvent (EventKey key ks' modifiers _) iw = do
-    w <- iw
+handleEvent :: Event -> World -> IO World
+handleEvent (EventKey key ks' modifiers _) w = do
     let ks = (ks' == Down)
     return $ case key of
-      Char 'w' -> return $ w{up=ks}
-      Char 'a' -> return $ w{left=ks}
-      Char 's' -> return $ w{down=ks}
-      Char 'd' -> return $ w{right=ks}
-      _ -> return w
+      Char 'w' ->  w{up=ks}
+      Char 'a' ->  w{left=ks}
+      Char 's' ->  w{down=ks}
+      Char 'd' ->  w{right=ks}
+      _ -> w
 handleEvent _ w = return w
 
 

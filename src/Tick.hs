@@ -38,10 +38,8 @@ tickWorld t w
   | otherwise = w{progress=progress w + t}
 -}
 
-tickWorld :: Float -> IO World -> IO (IO World)
-tickWorld t iw = do
-                  w <- iw
-                  return $ return $ if | not (isMining w) -> w
-                                       | progress w > 0.5 ->  (mine w){progress=0}
-                                       | otherwise ->  w{progress=progress w + t}
+tickWorld :: Float -> World -> IO World
+tickWorld t w = return $ if | not (isMining w) -> w
+                            | progress w > 0.5 ->  (mine w){progress=0}
+                            | otherwise ->  w{progress=progress w + t}
 

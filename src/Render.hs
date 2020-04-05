@@ -28,12 +28,11 @@ renderGrid x y assets = do
   let pics = map (map (\(p,s) -> drawAtPos p (renderSquare assets s))) numbered
   return $ Pictures (concat pics)
 
-renderWorld :: IO World -> IO Picture
-renderWorld iw = do
-    w <- iw
+renderWorld :: World -> IO Picture
+renderWorld w = do
     let p = player w
     let x = player_x p
     let y = player_y p
     let pic = evalState (renderGrid x y (assets w)) (worldMap w)
-    return $ pic
+    return pic
 

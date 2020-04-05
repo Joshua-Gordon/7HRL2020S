@@ -11,8 +11,6 @@ import Loader
 
 main :: IO ()
 main = do
-  loadedAssets <- loadAssets
   w <- new_world
-  let w=w{assets=loadedAssets}
-  playIO FullScreen black 30 new_world renderWorld handleEvent tickWorld
+  playIO FullScreen black 30 w renderWorld handleEvent tickWorld
 
