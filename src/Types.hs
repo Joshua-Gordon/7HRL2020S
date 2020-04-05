@@ -3,7 +3,7 @@ import Control.Monad.State
 import qualified Data.Map as M
 import Graphics.Gloss
 
-data Tile = Stone Int | Ore String Int | Empty
+data Tile = Stone Int | Ore String Int | Empty deriving Show
 
 type TileMap = M.Map (Int,Int) Tile
 
@@ -29,7 +29,7 @@ data World = World {
     ,right :: Bool
     ,progress :: Float
     ,assets :: Assets
-}
+}deriving Show
 
 data Player = Player {
     player_x :: Int,
@@ -46,7 +46,7 @@ data Player = Player {
     inv_cap :: Int,
     has_smelt :: Bool,
     drill_level :: Int
-}
+} deriving Show
 
 data Menu  = Menu {
     scroll_pos :: Int,
