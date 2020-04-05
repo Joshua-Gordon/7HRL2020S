@@ -15,16 +15,7 @@ new_player = Player {
     player_heat = 0,
     heat_thresh = 20,
     player_inv = fromList [
-        ("uranium",0),
-        ("iron",0),
-        ("coal",0),
-        ("redstone",0),
-        ("gold",0),
-        ("diamond",0),
-        ("netherite",0),
-        ("obamium",0),
-        ("steel",0),
-        ("depleted uranium",0)
+        ("uranium",0)
     ],
     radiator = 1,
     inv_cap = 40,
