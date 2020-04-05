@@ -24,7 +24,7 @@ mine w =
         Ore name hardness -> pickup name 1 (mineHardness hardness p)
       in w{
          player=p'{player_x = px',player_y = py'}
-        ,worldMap=setTile px' py' Empty wm'
+        ,worldMap=execState (setTile px' py' Empty) wm'
           }
 
 mineHardness :: Int -> Player -> Player
