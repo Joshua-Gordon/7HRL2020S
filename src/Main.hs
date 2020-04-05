@@ -14,7 +14,9 @@ main :: IO ()
 main = do
       loadedAssets <- loadAssets
       let w=new_world{assets=loadedAssets}
-      play FullScreen black 30 w renderWorld handleEvent tickWorld
+      let m = initialMenu loadedAssets w
+      play FullScreen black 30 m renderMenu handleMenuEvent updateMenu
+      --play FullScreen black 30 w renderWorld handleEvent tickWorld
 
 
 

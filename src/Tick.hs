@@ -4,6 +4,7 @@ module Tick where
 import Types
 import GridManage
 import Control.Monad.State
+import Player
 import Inventory
 import Debug.Trace
 
@@ -36,6 +37,7 @@ isMining :: World -> Bool
 isMining w = or [up w,down w,left w,right w]
 
 tickWorld :: Float -> World -> World
-tickWorld t w = if | not (isMining w) -> w
-                   | progress w > 0.5 ->  (mine w){progress=0}
-                   | otherwise ->  w{progress=progress w + t}
+tickWorld t w = let w' = if | not (isMining w) -> w
+                            | progress w > 0.5 ->  (mine w){progress=0}
+                            | otherwise ->  w{progress=progress w + t}
+                in w'{player = tick_heat . heat_damage $ player w'}
