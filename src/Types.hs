@@ -10,7 +10,12 @@ type GridState a = State TileMap a
 
 type Inventory = M.Map String Int
 type Components = [(String,Int)]
-type Recipie = (Components,String)
+
+data Recipie = Recipie {
+    ingredients :: Components
+   ,name :: String
+   ,description :: String
+}
 
 data World = World {
      worldMap :: TileMap
