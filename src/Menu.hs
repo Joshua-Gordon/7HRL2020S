@@ -30,7 +30,13 @@ initialMenu assets w = Menu {
         world = w
         }
 
---renderMenu :: Menu -> IO Picture
---renderMenu =  do
+renderMenu :: Menu -> Picture
+renderMenu m = Pictures [Translate (0,scroll_pos m) $ item_boxes m, background m]
     
+handleMenuEvent :: Event -> Menu -> Menu
+handleMenuEvent (EventKey (MouseButton WheelUp) _ _ _) m = m{scroll_pos=max 0 (scroll_pos m - 45)}
+handleMenuEvent (EventKey (MouseButton WheelDown) _ _ _) m = m{scroll_pos=(scroll_pos m + 45)}
+handleMenuEvent _ m = m
 
+updateMenu :: Float -> Menu -> Menu
+updateMenu _ m = m
