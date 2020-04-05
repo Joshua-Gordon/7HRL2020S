@@ -16,4 +16,3 @@ main = do
   let w=w{assets=loadedAssets}
   playIO FullScreen black 30 new_world renderWorld handleEvent tickWorld
 
-
