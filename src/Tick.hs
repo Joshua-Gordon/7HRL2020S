@@ -31,7 +31,7 @@ mine w =
           }
 
 mineHardness :: Int -> Player -> Player
-mineHardness h p = p{player_heat=player_heat p + round (0.3 * sqrt (fromIntegral h)),player_power=player_power p - h `div` 20}
+mineHardness h p = p{player_heat=player_heat p + round (0.6 * sqrt (fromIntegral h)),player_power=player_power p - h `div` 20}
 
 isMining :: World -> Bool
 isMining w = or [up w,down w,left w,right w]
@@ -48,6 +48,7 @@ doHeat w = w{player = tick_heat . heat_damage $ player w}
 
 tickWorld :: Float -> World -> World
 tickWorld t w = if | urDed w -> error "Ur ded lol (get good)"
-                   | not (isMining w) -> w
+                   | not (isMining w) && not (venting w) -> w
+                   | progress w > 0.1 && venting w -> doHeat w
                    | progress w > 0.2 ->  (doHeat . mine $ w){progress=0}
                    | otherwise ->  w{progress=progress w + t}
