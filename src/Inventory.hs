@@ -26,6 +26,19 @@ craft (comp,makes) p = let inv = player_inv p
                             "steel" -> p{player_inv=M.insert makes 1 inv',player_power=player_power p - 25}
                             "steel drill" -> p{player_inv=M.insert makes 1 inv',
 drill_level=max (drill_level p) 40,player_power=player_power p - 40}
+                            "steel hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 150, player_hull = max (player_hull p) 150, inv_cap = max (inv_cap p) 60}
+                            "depleted uranium drill" -> p{player_inv=M.insert makes 1 inv',drill_level=max (drill_level p) 60,player_power=player_power p - 80}
+                            "depleted uranium hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 200, player_hull = max (player_hull p) 200, inv_cap = max (inv_cap p) 80}
+                            "diamond drill" -> p{player_inv=M.insert makes 1 inv',drill_level=max (drill_level p) 80,player_power=player_power p - 120}
+                            "diamond hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 250, player_hull = max (player_hull p) 250, inv_cap = max (inv_cap p) 100}
+                            "netherite drill" -> p{player_inv=M.insert makes 1 inv',drill_level=max (drill_level p) 100,player_power=player_power p - 120}
+                            "netherite hull" -> p{player_inv=M.insert makes 1 inv',player_hull_max=max (player_hull_max p) 300, player_hull = max (player_hull p) 300, inv_cap = max (inv_cap p) 120}
+                            "radiator I" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 3}
+                            "radiator II" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 6}
+                            "radiator III" -> p{player_inv=M.insert makes 1 inv',radiator=max(radiator p) 9}
+                            "unstable reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 150}
+                            "unsafe reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 200}
+                            "irresponsible reactor" -> p{player_inv=M.insert makes 1 inv',player_power_max = max (player_power_max p) 300}
                             _ -> p{player_inv=M.insert makes 1 inv'}
                         Nothing -> p
 
@@ -64,4 +77,7 @@ recipes = [
     ([("iron",5),("gold",1)],"radiator I"),
     ([("gold",10),("redstone",10),("steel",5)],"radiator II"),
     ([("diamond",1),("gold",15),("redstone",5)],"radiator III"),
-    ([("iron",10),("coal",15)],"portable smeltery")]
+    ([("iron",10),("coal",15)],"portable smeltery"),
+    ([("steel",5),("uranium",5)],"unstable reactor"),
+    ([("diamond",5),("uranium",10)],"unsafe reactor"),
+    ([("obamium",1),("netherite",2)],"irresponsible reactor")]

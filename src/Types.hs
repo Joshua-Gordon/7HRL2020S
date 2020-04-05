@@ -39,3 +39,7 @@ data Player = Player {
     drill_level :: Int
 }
 
+data Menu  = Menu {
+    scroll_pos :: Int
+}
+
