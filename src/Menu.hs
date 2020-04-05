@@ -13,6 +13,8 @@ import Tick
 
 import Loader
 
+import Debug.Trace
+
 box :: Picture
 box = Color white $ Polygon [(0,0),(1000,0),(1000,50),(0,50)]
 
@@ -40,18 +42,19 @@ displayResources m = let  inv = (player_inv (player (world m)))
 
 initialMenu :: Map String Picture -> World -> Menu
 initialMenu assets w = Menu {
-        scroll_pos = 0,
-        item_boxes = Translate (-300) (-400) $ arrangeItemBoxes (fmap (buildItemBox (player_inv . player $ w)) recipes) 0,
+        scroll_pos = -50,
+        item_boxes = Translate (-300) (-590) $ arrangeItemBoxes (fmap (buildItemBox (player_inv . player $ w)) recipes) 0,
         background = case assets !? "menu.png.bmp" of
             Just m -> m
             Nothing -> error "Could not load menu image",
         world = w,
         is_paused = False,
-        resource_display = Blank
+        resource_display = Blank,
+        debug_mouse = Color green $ Circle 10
         }
 
 renderMenu :: Menu -> Picture
-renderMenu m = if is_paused m then Pictures [background m, Translate 0 (fromIntegral (scroll_pos m)) $ item_boxes m, resource_display m] else renderWorld (world m) 
+renderMenu m = if is_paused m then Pictures [background m, Translate 0 (fromIntegral (scroll_pos m)) $ item_boxes m, resource_display m, debug_mouse m] else renderWorld (world m) 
     
 handleMenuEvent :: Event -> Menu -> Menu
 handleMenuEvent (EventKey (Char 'p') _ _ _) m = m{is_paused=True}
@@ -59,7 +62,19 @@ handleMenuEvent (EventKey (Char 'o') _ _ _) m = m{is_paused=False}
 handleMenuEvent e m| not $ is_paused m = m{world=handleEvent e (world m)}
 handleMenuEvent (EventKey (MouseButton WheelUp) _ _ _) m = m{scroll_pos= (scroll_pos m - 45)}
 handleMenuEvent (EventKey (MouseButton WheelDown) _ _ _) m = m{scroll_pos=(scroll_pos m + 45)}
+handleMenuEvent (EventKey (MouseButton LeftButton) _ _ (x,y)) m = handleClick x y m
 handleMenuEvent _ m = m
 
 updateMenu :: Float -> Menu -> Menu
 updateMenu f m = displayResources m{world=tickWorld f (world m),item_boxes=Translate (-300) (-400) $ arrangeItemBoxes (fmap (buildItemBox (player_inv . player $ (world m))) recipes) 0}
+
+handleClick :: Float -> Float -> Menu -> Menu
+handleClick x y m = traceShow (x,y) $ if x > -300 && x < 700 
+                        then let recipeIndex = fromIntegral . toInteger . round $ (450 + y - fromIntegral (scroll_pos m)) / 50
+                             in if recipeIndex < (fromIntegral $ length recipes) && recipeIndex >= 0
+                                then let w = world m
+                                         p = player w
+                                         p' = craft (recipes !! recipeIndex) p
+                                     in traceShow recipeIndex m{world=w{player=p'}, debug_mouse = Translate x y $ Color green $ Circle 10}
+                                else m{debug_mouse = Translate x y $ Color green $ Circle 10}
+                        else m

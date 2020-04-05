@@ -54,5 +54,6 @@ data Menu  = Menu {
     item_boxes :: Picture,
     resource_display :: Picture,
     world :: World,
-    is_paused :: Bool
+    is_paused :: Bool,
+    debug_mouse :: Picture
 }
