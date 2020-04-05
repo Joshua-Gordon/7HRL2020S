@@ -27,9 +27,12 @@ data World = World {
     ,down :: Bool
     ,left :: Bool
     ,right :: Bool
+    ,venting :: Bool
     ,progress :: Float
     ,assets :: Assets
 }deriving Show
+
+data Task = Mining | Crawling | Venting
 
 data Player = Player {
     player_x :: Int,

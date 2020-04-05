@@ -3,7 +3,6 @@ import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game
 import Types
 import Player
-import Tick
 
 handleEvent :: Event -> World -> World
 handleEvent (EventKey key ks' modifiers _) w = let ks = (ks' == Down)
@@ -12,7 +11,7 @@ handleEvent (EventKey key ks' modifiers _) w = let ks = (ks' == Down)
                                                  Char 'a' -> w{left=ks}
                                                  Char 's' -> w{down=ks}
                                                  Char 'd' -> w{right=ks}
-                                                 (SpecialKey KeySpace) -> if ks then doHeat w else w
+                                                 (SpecialKey KeySpace) -> w{venting=ks}
                                                  _ -> w
 handleEvent _ w = w
 
