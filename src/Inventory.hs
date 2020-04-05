@@ -29,5 +29,11 @@ recipes = [
     ([("uranium",1)],"fuel cell"),
     ([("iron",1),("redstone",1)],"entropy mitigator"),
     ([("gold",1),("uranium",1)],"endothermic resonator"),
-    ([("iron",1),("coal",2)],"steel")
-]
+    ([("iron",1),("coal",2)],"steel"),
+    ([("uranium",5),("redstone",5),("steel",1)],"depleted uranium"),
+    ([("obamium",30)],"obamids"),
+    ([("steel",10),("redstone",2)],"steel drill"),
+    ([("steel",15)],"steel hull"),
+    ([("depleted uranium",10),("redstone",2)],"depleted uranium drill"),
+    ([("depleted uranium",15)],"depleted uranium hull"),
+    ([("diamond",10),("redstone",2)],"diamond drill")]
