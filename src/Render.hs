@@ -5,7 +5,6 @@ import Graphics.Gloss
 import Data.Maybe
 import World
 import Control.Monad.State.Lazy
-import Debug.Trace
 import qualified Data.Map as M
 
 renderSquare :: Assets -> Tile -> Picture
@@ -18,11 +17,12 @@ drawAtPos ::  (Int,Int) -> Picture -> Picture
 drawAtPos (x,y) = let
   x' = 32 * (fromIntegral x - 30)
   y' = 32 * (fromIntegral y - 30)
-  in traceShow (x',y') $ translate x' y'
+  in translate x' y'
 
 nameGetter :: Tile -> String
 nameGetter (Stone _) = "stone.png.bmp"
 nameGetter (Ore o _) = o ++ ".png.bmp"
+nameGetter Empty = "empty.png.bmp"
 
 renderGrid :: Int -> Int -> Assets -> GridState Picture 
 renderGrid x y assets = do
@@ -36,5 +36,6 @@ renderWorld w = let p = player w
                     x = player_x p
                     y = player_y p
                     pic = evalState (renderGrid x y (assets w)) (worldMap w)
-                in pic
+                    playerPic = fromJust $ M.lookup "player.png.bmp" (assets w)
+                in Pictures [pic,playerPic]
 

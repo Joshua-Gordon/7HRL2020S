@@ -5,6 +5,7 @@ import Types
 import GridManage
 import Control.Monad.State
 import Inventory
+import Debug.Trace
 
 mine :: World -> World
 mine w =
@@ -22,7 +23,11 @@ mine w =
       p' = case targetBlock of
         Stone hardness ->  mineHardness hardness p
         Ore name hardness -> pickup name 1 (mineHardness hardness p)
-      in w{player=p'}
+        Empty -> p
+      in traceShowId w{
+         player=p'{player_x = px',player_y = py'}
+        ,worldMap=execState (setTile px' py' Empty) wm'
+          }
 
 mineHardness :: Int -> Player -> Player
 mineHardness hardness p = p{player_heat=player_heat p + (hardness - drill_level p) `div` 5,player_power=player_power p - round (sqrt (fromIntegral hardness))}
